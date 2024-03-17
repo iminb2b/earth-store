@@ -3,13 +3,23 @@ import { NextPage } from "next";
 import PageMeta from "@/components/PageMeta";
 import { useContext, useEffect } from "react";
 import { AppContext } from "@/context/AppContext";
+import AboutPageHero from "@/components/AboutPage/AboutPageHero";
+import PageSegment from "@/components/PageSegment";
+import AboutPageMission from "@/components/AboutPage/AboutPageMission";
+import HomePagePostCardBanner from "@/components/HomePage/HomePagePostCardBanner";
 
-const HomePage: NextPage = () => {
+const AboutPage: NextPage = () => {
   return (
     <PageContainer>
-      <PageMeta title="Min - Home Page" description={"Nhung Nguyen"} />
+      <PageMeta title="Earth Store - About US" description={"Nhung Nguyen"} />
+      <AboutPageHero />
+      <PageSegment>
+        <AboutPageMission />
+      </PageSegment>
+
+      <HomePagePostCardBanner />
     </PageContainer>
   );
 };
 
-export default HomePage;
+export default AboutPage;

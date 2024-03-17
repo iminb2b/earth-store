@@ -1,3 +1,3 @@
-import HomePage from "@/PageComponents/HomePage";
+import AboutPage from "@/PageComponents/AboutPage";
 
-export default HomePage;
+export default AboutPage;
