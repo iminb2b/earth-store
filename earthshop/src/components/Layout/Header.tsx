@@ -7,7 +7,7 @@ import NavList from "../Nav/NavList";
 import NavMenuMobileButton from "../Nav/NavMenuMobileButton";
 import NavListMobile from "../Nav/NavListMobile";
 
-const container = css`
+const container = ({ scrollNav }: { scrollNav: boolean }) => css`
   width: 100%;
   position: fixed;
   top: 0;
@@ -17,7 +17,9 @@ const container = css`
   z-index: 10;
   justify-content: center;
   transition: all 0.3s ease;
-  padding: 0.5rem 0;
+
+  background-color: ${scrollNav ? "rgba(255, 255, 255, 0.95)" : "transparent"};
+  box-shadow: ${scrollNav ? "rgba(0, 0, 0, 0.1) 0px 4px 12px;" : "none"};
 `;
 
 const contentWrapper = css`
@@ -27,15 +29,6 @@ const contentWrapper = css`
   transition: all 0.3s ease;
   display: flex;
   justify-content: space-between;
-
-  border-radius: 3rem;
-`;
-
-const lightModeContainer = ({ scrollNav }: { scrollNav: boolean }) => css`
-  ${contentWrapper}
-
-  background-color: ${scrollNav ? "rgba(255, 255, 255, 0.95)" : "transparent"};
-  box-shadow: ${scrollNav ? "rgba(0, 0, 0, 0.1) 0px 4px 12px;" : "none"};
 `;
 
 const Header: FC = () => {
@@ -57,12 +50,12 @@ const Header: FC = () => {
     mobileHeaderNavDialogStore.useState("mounted");
 
   return (
-    <div css={container}>
-      <div
-        css={lightModeContainer({
-          scrollNav: mobileHeaderNavDialogIsMounted || scrollNav,
-        })}
-      >
+    <div
+      css={container({
+        scrollNav: mobileHeaderNavDialogIsMounted || scrollNav,
+      })}
+    >
+      <div css={contentWrapper}>
         <Logo />
         <NavList />
 
