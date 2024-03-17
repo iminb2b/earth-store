@@ -1,0 +1,31 @@
+{
+  "cSpell.ignorePaths": [
+    "**/package-lock.json",
+    "**/node_modules/**",
+    "**/vscode-extension/**",
+    ".vscode"
+  ],
+  "editor.formatOnSave": false,
+  "editor.tabSize": 2,
+  "files.insertFinalNewline": true,
+  "files.trimFinalNewlines": true,
+  "files.trimTrailingWhitespace": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit"
+  },
+  "prettier.configPath": "prettier.config.js",
+  "[javascript][json][jsonc][typescript][typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  },
+  "[markdown]": {
+    "editor.detectIndentation": false,
+    "editor.tabSize": 4
+  },
+  "cSpell.words": [
+    "customsearch",
+    "darkmode",
+    "nextjs",
+    "styledcomponent"
+  ]
+}

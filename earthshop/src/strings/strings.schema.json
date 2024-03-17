@@ -1,0 +1,99 @@
+{
+  "$ref": "#/definitions/Strings",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "definitions": {
+    "SharedStrings": {
+      "additionalProperties": false,
+      "type": "object"
+    },
+    "Strings": {
+      "additionalProperties": false,
+      "properties": {
+        "$schema": {
+          "type": "string"
+        },
+        "ContactPage": {
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "followOnSocialMedia": {
+              "type": "string"
+            },
+            "title": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "title",
+            "description",
+            "followOnSocialMedia"
+          ],
+          "type": "object"
+        },
+        "HomePage": {
+          "additionalProperties": false,
+          "properties": {
+            "Hero": {
+              "additionalProperties": false,
+              "properties": {
+                "description": {
+                  "type": "string"
+                },
+                "title1": {
+                  "type": "string"
+                },
+                "title2": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "title2",
+                "title1",
+                "description"
+              ],
+              "type": "object"
+            }
+          },
+          "required": [
+            "Hero"
+          ],
+          "type": "object"
+        },
+        "MyProjects": {
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "personalWork": {
+              "type": "string"
+            },
+            "title": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "title",
+            "description",
+            "personalWork"
+          ],
+          "type": "object"
+        },
+        "shared": {
+          "$ref": "#/definitions/SharedStrings",
+          "description": "Shared (reused in several components)"
+        }
+      },
+      "required": [
+        "$schema",
+        "shared",
+        "HomePage",
+        "MyProjects",
+        "ContactPage"
+      ],
+      "type": "object"
+    }
+  }
+}

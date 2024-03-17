@@ -1,0 +1,21 @@
+{
+  "$schema": "./strings.schema.json",
+  "shared": {},
+  "ContactPage": {
+    "description": "Feel free to contact me. I'm always eager to connect with fellow developers and potential clients!",
+    "followOnSocialMedia": "Theo dõi mình trên mạng xã hội",
+    "title": "Thông tin liên hệ"
+  },
+  "HomePage": {
+    "Hero": {
+      "title1": "Xin chào! Mình là Nhung.",
+      "title2": "Một lập trình viên Front-end",
+      "description": "Mình viết code."
+    }
+  },
+  "MyProjects": {
+    "description": "",
+    "personalWork": "DỰ ÁN CÁ NHÂN",
+    "title": "Danh Sách Dự Án"
+  }
+}
