@@ -35,31 +35,31 @@ export type NavInfo = {
   isButtonLink: boolean;
 };
 
+export const navListInfo: NavInfo[] = [
+  {
+    name: "Home",
+    url: routeLinks.home(),
+    isButtonLink: true,
+  },
+  {
+    name: "About",
+    url: routeLinks.about(),
+    isButtonLink: true,
+  },
+  {
+    name: "Shop",
+    isButtonLink: true,
+    url: routeLinks.products(),
+  },
+  {
+    name: "Contact",
+    isButtonLink: true,
+    url: routeLinks.contact(),
+  },
+];
+
 const NavList: FC = () => {
   const router = useRouter();
-
-  const navListInfo: NavInfo[] = [
-    {
-      name: "HOME",
-      url: routeLinks.home(),
-      isButtonLink: true,
-    },
-    {
-      name: "ABOUT",
-      url: routeLinks.about(),
-      isButtonLink: true,
-    },
-    {
-      name: "SHOP",
-      isButtonLink: true,
-      url: routeLinks.products(),
-    },
-    {
-      name: "CONTACT",
-      isButtonLink: true,
-      url: routeLinks.contact(),
-    },
-  ];
 
   return (
     <div css={container}>

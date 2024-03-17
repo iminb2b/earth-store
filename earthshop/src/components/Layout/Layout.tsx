@@ -2,6 +2,7 @@ import { Global, css } from "@emotion/react";
 import { FC, ReactNode } from "react";
 import Header from "./Header";
 import globalStyles from "@/styles/globalStyles";
+import Footer from "./Footer";
 
 const pageContainer = css`
   width: 100%;
@@ -30,6 +31,7 @@ const Layout: FC<{
       <Global styles={globalStyles} />
       <Header />
       <div css={contentContainer}>{children}</div>
+      <Footer />
     </div>
   );
 };

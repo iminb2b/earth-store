@@ -9,6 +9,7 @@ const link = css`
   position: relative;
   letter-spacing: 2.5px;
   font-size: 1.125rem;
+  text-transform: uppercase;
 
   &:hover {
     &::after {

@@ -10,6 +10,8 @@ const container = css`
   flex-direction: column;
   gap: 2rem;
   width: 100%;
+  height: 100%;
+  justify-content: space-between;
 `;
 
 const contentContainer = css`

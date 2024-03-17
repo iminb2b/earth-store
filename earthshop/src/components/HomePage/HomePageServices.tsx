@@ -16,12 +16,21 @@ const container = css`
     display: flex;
     flex-direction: column;
     gap: 2rem;
+    justify-content: center;
   }
 `;
 
 const itemContainer = css`
   display: flex;
   gap: 1rem;
+
+  @media screen and (max-width: 688px) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 2rem;
+  }
 `;
 const iconContainer = css`
   height: 3rem;
@@ -47,7 +56,7 @@ const description = css`
   color: ${colors.darkGray};
 `;
 const icon = css`
-  font-size: 2rem;
+  font-size: 1.5rem;
 `;
 
 const HomePageServices: FC = () => {
