@@ -9,6 +9,7 @@ import HomePageFeaturedProducts from "@/components/HomePage/HomePageFeaturedProd
 import PageSegment from "@/components/PageSegment";
 import HomePageReviews from "@/components/HomePage/HomePageReviews";
 import HomePagePostCardBanner from "@/components/HomePage/HomePagePostCardBanner";
+import HomePageServices from "@/components/HomePage/HomePageServices";
 
 const container = css`
   width: 100%;
@@ -98,6 +99,10 @@ const HomePage: NextPage = () => {
         </PageSegment>
 
         <HomePagePostCardBanner />
+
+        <PageSegment>
+          <HomePageServices />
+        </PageSegment>
       </div>
     </PageContainer>
   );
