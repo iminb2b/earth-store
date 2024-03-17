@@ -2,6 +2,7 @@ import { FC } from "react";
 import { css } from "@emotion/react";
 import { ProductInfo } from "@/PageComponents/HomePage";
 import ProductList from "../ProductsPage/ProductList";
+import { sectionTitle } from "@/styles/generalStyles";
 
 const container = css`
   width: 100%;
@@ -10,17 +11,13 @@ const container = css`
   flex-direction: column;
   gap: 4rem;
 `;
-const title = css`
-  font-size: 2rem;
-  font-weight: 500;
-`;
 
 const HomePageFeaturedProducts: FC<{ products: ProductInfo[] }> = ({
   products,
 }) => {
   return (
     <div css={container}>
-      <p css={title}>FEATURED PRODUCTS</p>
+      <p css={sectionTitle}>FEATURED PRODUCTS</p>
       <ProductList products={products} />
     </div>
   );

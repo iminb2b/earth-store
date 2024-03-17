@@ -2,6 +2,7 @@ import { FC } from "react";
 import { css } from "@emotion/react";
 import Image from "next/image";
 import colors from "@/value/colors";
+import { sectionTitle } from "@/styles/generalStyles";
 
 const container = css`
   width: 100%;
@@ -33,12 +34,6 @@ const content = css`
   gap: 2rem;
 `;
 
-const title = css`
-  font-size: clamp(1.125rem, 3vw, 2.75rem);
-  font-weight: 500;
-  letter-spacing: 3px;
-`;
-
 const description = css`
   line-height: 2;
   color: ${colors.darkGray};
@@ -60,7 +55,7 @@ const AboutPageMission: FC = () => {
         />
       </div>
       <div css={content}>
-        <h1 css={title}>OUR MISSION</h1>
+        <h1 css={sectionTitle}>OUR MISSION</h1>
         <p css={description}>
           Our mission is simple: to inspire a deeper connection with our planet
           through art. We believe that by surrounding ourselves with images of

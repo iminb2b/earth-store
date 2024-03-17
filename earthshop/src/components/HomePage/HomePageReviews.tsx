@@ -2,6 +2,7 @@ import { FC } from "react";
 import { css } from "@emotion/react";
 import { ReviewInfo } from "@/PageComponents/HomePage";
 import ReviewList from "./ReviewList";
+import { sectionTitle } from "@/styles/generalStyles";
 
 const container = css`
   width: 100%;
@@ -11,15 +12,11 @@ const container = css`
   gap: 4rem;
   border-top: 1px solid #d7d7d7;
 `;
-const title = css`
-  font-size: 2rem;
-  font-weight: 500;
-`;
 
 const HomePageReviews: FC<{ reviews: ReviewInfo[] }> = ({ reviews }) => {
   return (
     <div css={container}>
-      <p css={title}>WHAT OUR CUSTOMERS SAY</p>
+      <p css={sectionTitle}>WHAT OUR CUSTOMERS SAY</p>
       <ReviewList reviews={reviews} />
     </div>
   );

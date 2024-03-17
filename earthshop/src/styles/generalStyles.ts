@@ -12,8 +12,10 @@ export const sectionService = ({ darkmode }: { darkmode: boolean }) => css`
 `;
 
 export const sectionTitle = css`
-  font-size: clamp(2rem, 4vw, 3rem);
-  font-weight: bold;
+  font-weight: 500;
+  font-size: clamp(1.125rem, 3vw, 2.75rem);
+  letter-spacing: 3px;
+  text-transform: uppercase;
 `;
 
 export const sectionDescription = css`

@@ -1,3 +1,3 @@
-import HomePage from "@/PageComponents/HomePage";
+import ContactPage from "@/PageComponents/ContactPage";
 
-export default HomePage;
+export default ContactPage;

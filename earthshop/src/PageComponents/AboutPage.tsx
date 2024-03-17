@@ -12,7 +12,7 @@ const AboutPage: NextPage = () => {
   return (
     <PageContainer>
       <PageMeta title="Earth Store - About US" description={"Nhung Nguyen"} />
-      <AboutPageHero />
+      <AboutPageHero title="WHO ARE WE?" />
       <PageSegment>
         <AboutPageMission />
       </PageSegment>

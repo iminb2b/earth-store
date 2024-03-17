@@ -34,14 +34,15 @@ const content = css`
   flex-direction: column;
 `;
 
-const title = css`
+const titleText = css`
   font-size: clamp(2rem, 5vw, 3.75rem);
   font-weight: 500;
   letter-spacing: 7px;
   color: ${colors.green10};
+  text-transform: uppercase;
 `;
 
-const AboutPageHero: FC = () => {
+const AboutPageHero: FC<{ title: string }> = ({ title }) => {
   return (
     <div css={container}>
       <Image
@@ -56,7 +57,7 @@ const AboutPageHero: FC = () => {
 
       <div css={overlay}>
         <div css={content}>
-          <h1 css={title}>WHO ARE WE?</h1>
+          <h1 css={titleText}>{title}</h1>
         </div>
       </div>
     </div>

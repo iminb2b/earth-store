@@ -23,6 +23,7 @@ const container = css`
 const itemContainer = css`
   display: flex;
   gap: 1rem;
+  align-items: center;
 
   @media screen and (max-width: 688px) {
     display: flex;

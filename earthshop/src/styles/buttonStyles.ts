@@ -13,7 +13,7 @@ const buttonStyles = ({
   padding: ${size === "medium" ? "1rem 2rem" : "1.5rem"};
   cursor: pointer;
   transition: all 0.3s ease;
-  font-size: clamp(0.75rem, 2vw, 1rem);
+  font-size: 1rem;
 
   height: ${size === "medium" ? "3rem" : "4.5rem"};
   display: flex;
