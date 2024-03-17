@@ -5,10 +5,16 @@ import ProductListItem from "./ProductListItem";
 
 const container = css`
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
+  grid-template-columns: 1fr 1fr 1fr;
   grid-gap: 2rem;
   max-width: 100%;
   width: 100%;
+
+  /* @media screen and (max-width: 688px) {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  } */
 `;
 
 const ProductList: FC<{ products: ProductInfo[] }> = ({ products }) => {
