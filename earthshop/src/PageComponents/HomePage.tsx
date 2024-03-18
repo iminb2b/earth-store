@@ -21,6 +21,7 @@ export type ProductInfo = {
   price: string;
   image: string;
   id: number;
+  introduction: string;
 };
 
 export type ReviewInfo = {
@@ -65,6 +66,8 @@ export const dummyProductInfos: ProductInfo[] = [
     image:
       "https://websitedemos.net/earth-store-02/wp-content/uploads/sites/1171/2022/10/Poster5-1000x1000.jpg",
     id: 1,
+    introduction:
+      "Inspirational posters are a great way to be inspired and encouraged to take on new challenges and adventures. Hang up a poster at home or in the office to be reminded how much beauty awaits in the world, luring you out of your comfort zone and into a world where possibility resides.",
   },
   {
     type: "Poster",
@@ -73,6 +76,8 @@ export const dummyProductInfos: ProductInfo[] = [
     image:
       "https://websitedemos.net/earth-store-02/wp-content/uploads/sites/1171/2022/10/Poster6-1000x1000.jpg",
     id: 2,
+    introduction:
+      "Inspirational posters are a great way to be inspired and encouraged to take on new challenges and adventures. Hang up a poster at home or in the office to be reminded how much beauty awaits in the world, luring you out of your comfort zone and into a world where possibility resides.",
   },
   {
     type: "Poster",
@@ -81,6 +86,8 @@ export const dummyProductInfos: ProductInfo[] = [
     image:
       "https://websitedemos.net/earth-store-02/wp-content/uploads/sites/1171/2022/10/Poster4-1000x1000.jpg",
     id: 3,
+    introduction:
+      "Inspirational posters are a great way to be inspired and encouraged to take on new challenges and adventures. Hang up a poster at home or in the office to be reminded how much beauty awaits in the world, luring you out of your comfort zone and into a world where possibility resides.",
   },
 ];
 

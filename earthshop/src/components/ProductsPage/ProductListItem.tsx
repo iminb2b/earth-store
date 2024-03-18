@@ -63,7 +63,7 @@ const ProductListItem: FC<{ product: ProductInfo }> = ({
   product: { name, type, price, image, id },
 }) => {
   return (
-    <Link css={container} href={routeLinks.product({ productId: id })}>
+    <Link css={container} href={routeLinks.product({ productId: id, type })}>
       <div css={iconContainer} id="icon-container">
         <ShoppingBasketIcon css={icon} />
       </div>

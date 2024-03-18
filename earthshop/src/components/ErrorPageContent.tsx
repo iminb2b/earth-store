@@ -40,10 +40,7 @@ const ErrorPageContent: NextPage = () => {
             <p css={error404}>404</p>
             <h1>ERROR: Page Not Found</h1>
           </div>
-          <Link
-            css={buttonStyles({ size: "large", darkmode: false })}
-            href={routeLinks.homePage()}
-          >
+          <Link css={buttonStyles({ size: "large" })} href={routeLinks.home()}>
             Go to Home Page
           </Link>
         </div>

@@ -110,6 +110,9 @@ const globalStyles = css`
     outline: none;
     background-color: transparent;
   }
+  ul {
+    list-style-type: none;
+  }
 
   @media (prefers-color-scheme: dark) {
     html {
