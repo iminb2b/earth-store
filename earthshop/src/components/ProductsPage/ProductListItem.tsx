@@ -82,7 +82,10 @@ const ProductListItem: FC<{ product: ProductInfo }> = ({ product }) => {
   return (
     <Link
       css={container}
-      href={routeLinks.product({ productId: product.id, type: product.type })}
+      href={routeLinks.product({
+        productId: product.id,
+        type: product.type.name,
+      })}
     >
       <button css={iconContainer} id="icon-container" onClick={onClick}>
         <ShoppingBasketIcon css={icon} />
@@ -96,7 +99,7 @@ const ProductListItem: FC<{ product: ProductInfo }> = ({ product }) => {
           alt={product.name}
         />
       </div>
-      <div css={productType}>{product.type}</div>
+      <div css={productType}>{product.type.name}</div>
       <h3 css={productName}>{product.name}</h3>
       <p css={productPrice}>${product.price}</p>
     </Link>

@@ -96,11 +96,13 @@ const NavShoppingCart: FC = () => {
   }, [pathname]);
   return (
     <div css={container}>
-      <Button onClick={() => setOpen(true)} className="button">
-        <button css={buttonContainer}>
-          <div css={badge}>{cartProductCounts}</div>
-          <ShoppingBasketIcon css={icon} />
-        </button>
+      <Button
+        onClick={() => setOpen(true)}
+        className="button"
+        css={buttonContainer}
+      >
+        <div css={badge}>{cartProductCounts}</div>
+        <ShoppingBasketIcon css={icon} />
       </Button>
       <Dialog open={open} onClose={() => setOpen(false)} css={dialog}>
         <div css={dialogContent}>

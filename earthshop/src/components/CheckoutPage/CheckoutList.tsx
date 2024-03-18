@@ -1,9 +1,9 @@
-import { FC } from "react";
+import { FC, useContext } from "react";
 import { css } from "@emotion/react";
-import { productInfos } from "@/PageComponents/ProductsPage";
 import CheckoutListItem from "./CheckoutListItem";
 import colors from "@/value/colors";
 import buttonStyles from "@/styles/buttonStyles";
+import { AppContext } from "@/context/AppContext";
 
 const container = css`
   border-top: 1px solid #d7d7d7;
@@ -37,8 +37,12 @@ const text = css`
 `;
 
 const CheckoutList: FC = () => {
-  const price = productInfos.reduce(
-    (acc, curr) => acc + parseInt(curr.price),
+  const {
+    state: { cart },
+  } = useContext(AppContext);
+
+  const price = cart.reduce(
+    (acc, curr) => acc + parseInt(curr.product.price) * curr.count,
     0,
   );
 
@@ -50,8 +54,12 @@ const CheckoutList: FC = () => {
         <h3 css={heading}>Price</h3>
       </div>
       <div css={productContainer}>
-        {productInfos.map((product, index) => (
-          <CheckoutListItem product={product} key={product.id} index={index} />
+        {cart.map((item, index) => (
+          <CheckoutListItem
+            product={item.product}
+            key={item.product.id}
+            index={index}
+          />
         ))}
       </div>
       <div css={headerContainer}>

@@ -31,11 +31,11 @@ const flexContainer = css`
 
 const FilterSection: FC<{ products: ProductInfo[] }> = ({ products }) => {
   const postcardCounts = products.filter(
-    (product) => product.type === "postcard",
+    (product) => product.type.name === "postcard",
   ).length;
 
   const posterCounts = products.filter(
-    (product) => product.type === "poster",
+    (product) => product.type.name === "poster",
   ).length;
 
   return (
