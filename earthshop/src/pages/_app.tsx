@@ -4,7 +4,11 @@ import type { AppProps } from "next/app";
 import { AppState, AppProvider } from "@/context/AppContext";
 
 export default function App({ Component, pageProps }: AppProps) {
-  const initialContextValue: AppState = {};
+  const initialContextValue: AppState = {
+    username: null,
+    cart: [],
+    cartProductCounts: 0,
+  };
 
   if (pageProps.error) {
     return (

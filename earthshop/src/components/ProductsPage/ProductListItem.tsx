@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useCallback, useContext } from "react";
 import { css } from "@emotion/react";
 import { ProductInfo } from "@/PageComponents/HomePage";
 import Image from "next/image";
@@ -6,6 +6,7 @@ import colors from "@/value/colors";
 import Link from "next/link";
 import routeLinks from "@/routeLinks";
 import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
+import { AppContext } from "@/context/AppContext";
 
 const container = css`
   display: flex;
@@ -54,25 +55,50 @@ const iconContainer = css`
   border-radius: 100%;
   opacity: 0;
   transition: all 0.3s ease-in-out;
+
+  cursor: pointer;
+
+  &:hover {
+    background-color: ${colors.green10};
+
+    svg {
+      color: ${colors.white};
+    }
+  }
 `;
 const icon = css`
   color: ${colors.green20};
 `;
 
-const ProductListItem: FC<{ product: ProductInfo }> = ({
-  product: { name, type, price, image, id },
-}) => {
+const ProductListItem: FC<{ product: ProductInfo }> = ({ product }) => {
+  const { dispatch } = useContext(AppContext);
+
+  const onClick = useCallback((e: any) => {
+    e.preventDefault();
+
+    dispatch({ type: "addToCart", product });
+  }, []);
+
   return (
-    <Link css={container} href={routeLinks.product({ productId: id, type })}>
-      <div css={iconContainer} id="icon-container">
+    <Link
+      css={container}
+      href={routeLinks.product({ productId: product.id, type: product.type })}
+    >
+      <button css={iconContainer} id="icon-container" onClick={onClick}>
         <ShoppingBasketIcon css={icon} />
-      </div>
+      </button>
       <div css={productImage}>
-        <Image src={image} fill sizes="19rem" css={img} alt={name} />
+        <Image
+          src={product.image}
+          fill
+          sizes="19rem"
+          css={img}
+          alt={product.name}
+        />
       </div>
-      <div css={productType}>{type}</div>
-      <h3 css={productName}>{name}</h3>
-      <p css={productPrice}>${price}</p>
+      <div css={productType}>{product.type}</div>
+      <h3 css={productName}>{product.name}</h3>
+      <p css={productPrice}>${product.price}</p>
     </Link>
   );
 };

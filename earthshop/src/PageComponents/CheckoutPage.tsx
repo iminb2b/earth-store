@@ -5,12 +5,14 @@ import PageSegment from "@/components/PageSegment";
 import { css } from "@emotion/react";
 import { sectionTitle } from "@/styles/generalStyles";
 import colors from "@/value/colors";
+import CheckoutList from "@/components/CheckoutPage/CheckoutList";
 
 const container = css`
   display: flex;
   flex-direction: column;
-  margin-top: 5rem;
+  margin: 5rem 0;
   border-top: 1px solid #d7d7d7;
+  gap: 3rem;
 `;
 const title = css`
   ${sectionTitle}
@@ -26,6 +28,7 @@ const CheckoutPage: NextPage = () => {
       <PageSegment>
         <div css={container}>
           <h3 css={title}>Check out</h3>
+          <CheckoutList />
         </div>
       </PageSegment>
     </PageContainer>

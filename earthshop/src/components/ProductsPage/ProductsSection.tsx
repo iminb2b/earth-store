@@ -25,7 +25,9 @@ const ProductsSection: FC<{ products: ProductInfo[]; type: string }> = ({
   products,
   type,
 }) => {
-  const filteredProducts = products.filter((product) => product.type === type);
+  const filteredProducts = products.filter((product) =>
+    type === "all" ? true : product.type === type,
+  );
 
   return (
     <div css={container}>

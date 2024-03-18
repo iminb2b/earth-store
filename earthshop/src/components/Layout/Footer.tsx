@@ -12,6 +12,8 @@ const container = css`
   justify-content: space-between;
   align-items: center;
 
+  max-width: 1200px;
+  margin: auto;
   @media screen and (max-width: 1200px) {
     padding: 3rem 1rem;
   }
