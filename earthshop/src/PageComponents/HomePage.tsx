@@ -22,6 +22,8 @@ export type ProductInfo = {
   image: string;
   id: number;
   introduction: string;
+  description: string;
+  reviews: ReviewInfo[];
 };
 
 export type ReviewInfo = {
@@ -68,8 +70,13 @@ export const dummyProductInfos: ProductInfo[] = [
     id: 1,
     introduction:
       "Inspirational posters are a great way to be inspired and encouraged to take on new challenges and adventures. Hang up a poster at home or in the office to be reminded how much beauty awaits in the world, luring you out of your comfort zone and into a world where possibility resides.",
+    description:
+      "<h3>Framed Without Borders:</h3><ul><li> Printed on High-Quality vinyl.</li><li> 1-inch thick wooden back frame.</li><li> No additional hanging hardware is required.</li><li> Care: Dust with a soft, dry cloth.</li></ul><h3>Framed With Borders & Acrylic Glass</h3> <ul><li>Printed on High-Quality matte photo paper.</li><li>Acrylic borders are used.</li> <li>Highly durable acrylic glass is used on the top to protect it from damage.</li> <li>Hooks are attached to the back of each frame for hanging.</li></ul><p><b>Note:</b> There may be a slight difference in actual color, due to the colors of display.</p>",
+
+    reviews: dummyReviewInfos,
   },
   {
+    reviews: dummyReviewInfos,
     type: "Poster",
     name: "Poster V2",
     price: "13.99",
@@ -78,8 +85,11 @@ export const dummyProductInfos: ProductInfo[] = [
     id: 2,
     introduction:
       "Inspirational posters are a great way to be inspired and encouraged to take on new challenges and adventures. Hang up a poster at home or in the office to be reminded how much beauty awaits in the world, luring you out of your comfort zone and into a world where possibility resides.",
+    description:
+      "<h3>Framed Without Borders:</h3><ul><li> Printed on High-Quality vinyl.</li><li> 1-inch thick wooden back frame.</li><li> No additional hanging hardware is required.</li><li> Care: Dust with a soft, dry cloth.</li></ul><h3>Framed With Borders & Acrylic Glass</h3> <ul><li>Printed on High-Quality matte photo paper.</li><li>Acrylic borders are used.</li> <li>Highly durable acrylic glass is used on the top to protect it from damage.</li> <li>Hooks are attached to the back of each frame for hanging.</li></ul><p><b>Note:</b> There may be a slight difference in actual color, due to the colors of display.</p>",
   },
   {
+    reviews: dummyReviewInfos,
     type: "Poster",
     name: "Poster V3",
     price: "12.99",
@@ -88,6 +98,8 @@ export const dummyProductInfos: ProductInfo[] = [
     id: 3,
     introduction:
       "Inspirational posters are a great way to be inspired and encouraged to take on new challenges and adventures. Hang up a poster at home or in the office to be reminded how much beauty awaits in the world, luring you out of your comfort zone and into a world where possibility resides.",
+    description:
+      "<h3>Framed Without Borders:</h3><ul><li> Printed on High-Quality vinyl.</li><li> 1-inch thick wooden back frame.</li><li> No additional hanging hardware is required.</li><li> Care: Dust with a soft, dry cloth.</li></ul><h3>Framed With Borders & Acrylic Glass</h3> <ul><li>Printed on High-Quality matte photo paper.</li><li>Acrylic borders are used.</li> <li>Highly durable acrylic glass is used on the top to protect it from damage.</li> <li>Hooks are attached to the back of each frame for hanging.</li></ul><p><b>Note:</b> There may be a slight difference in actual color, due to the colors of display.</p>",
   },
 ];
 

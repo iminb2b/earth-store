@@ -1,3 +1,3 @@
-import HomePage from "@/PageComponents/HomePage";
+import SignInPage from "@/PageComponents/SignInPage";
 
-export default HomePage;
+export default SignInPage;

@@ -6,6 +6,7 @@ import { ProductInfo } from "./HomePage";
 import PageSegment from "@/components/PageSegment";
 import ProductSection from "@/components/ProductPage/ProductSection";
 import { css } from "@emotion/react";
+import RelatedProducts from "@/components/ProductPage/RelatedProducts";
 
 type ProductPageProps = {
   product: ProductInfo;
@@ -17,6 +18,7 @@ const container = css`
   border-top: 1px solid #d7d7d7;
 
   display: flex;
+  flex-direction: column;
 
   padding: 5rem 0;
 `;
@@ -31,6 +33,7 @@ const ProductPage: NextPage<ProductPageProps> = ({
       <PageSegment>
         <div css={container}>
           <ProductSection product={product} />
+          <RelatedProducts products={relatedProducts} />
         </div>
       </PageSegment>
     </PageContainer>
@@ -47,5 +50,5 @@ export const getServerSideProps: GetServerSideProps<ProductPageProps> = async ({
       (item) => item.id.toString() === query.id?.toString() ?? "1",
     )[0] ?? productInfos[0];
 
-  return { props: { relatedProducts: productInfos, product } };
+  return { props: { relatedProducts: productInfos.slice(0, 3), product } };
 };

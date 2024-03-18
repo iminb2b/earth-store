@@ -18,7 +18,9 @@ const icon = css`
 const NavAuth: FC = () => {
   return (
     <button>
-      <PersonIcon css={icon} />
+      <Link href={routeLinks.signIn()} aria-label="Sign In ">
+        <PersonIcon css={icon} />
+      </Link>
     </button>
   );
 };
