@@ -11,6 +11,12 @@ class ProductsType(DjangoObjectType):
         fields = "__all__"
 
 
+class SingleProductType(DjangoObjectType):
+    class Meta:
+        model = Product
+        fields = "__all__"
+
+
 class ProductsConnection(graphene.relay.Connection):
     class Meta:
         node = ProductsType
@@ -58,6 +64,11 @@ class Query(graphene.ObjectType):
 
     def resolve_users(self, info, **kwargs):
         return User.objects.all()
+
+    product = graphene.Field(SingleProductType, id=graphene.String())
+
+    def resolve_product(root, info, id):
+        return Product.objects.filter(id=id).first()
 
 
 schema = graphene.Schema(query=Query)

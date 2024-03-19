@@ -28,7 +28,7 @@ export type ProductInfo = {
   description: string;
 };
 
-export type ProductConnection = {
+export type ProductsConnection = {
   products: {
     pageInfo: {
       hasNextPage: boolean;
@@ -38,6 +38,10 @@ export type ProductConnection = {
       node: ProductInfo;
     }>;
   };
+};
+
+export type ProductConnection = {
+  product: ProductInfo;
 };
 
 export type ReviewConnection = {
@@ -94,7 +98,7 @@ export const getServerSideProps: GetServerSideProps<HomePageProps> = async ({
 }) => {
   const productResponse = (await graphQLClient.request(getProductsQuery, {
     count: 3,
-  })) as ProductConnection;
+  })) as ProductsConnection;
   const reviewResponse = (await graphQLClient.request(
     getReviewsQuery,
   )) as ReviewConnection;

@@ -40,7 +40,10 @@ const nameContainer = css`
 `;
 
 const ProductReviewListItem: FC<{ review: ReviewInfo }> = ({
-  review: { name, description, image, id },
+  review: {
+    user: { username, image },
+    description,
+  },
 }) => {
   return (
     <div css={container}>
@@ -48,7 +51,7 @@ const ProductReviewListItem: FC<{ review: ReviewInfo }> = ({
         <Image src={image} alt="name" height={70} width={70} css={img} />
       </div>
       <div css={contentContainer}>
-        <h5 css={reviewName}>{name}</h5>
+        <h5 css={reviewName}>{username}</h5>
         <p css={reviewText}>{description}</p>
       </div>
     </div>

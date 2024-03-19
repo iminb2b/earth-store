@@ -59,7 +59,6 @@ const Quantity: FC = () => {
           css={inputBox}
           type="number"
           min={1}
-          defaultValue={0}
           value={count}
           onChange={onChange}
         />

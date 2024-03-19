@@ -2,7 +2,7 @@ import PageContainer from "@/components/PageContent";
 import { GetServerSideProps, NextPage } from "next";
 import PageMeta from "@/components/PageMeta";
 import { css } from "@emotion/react";
-import { ProductConnection, ProductInfo } from "./HomePage";
+import { ProductsConnection, ProductInfo } from "./HomePage";
 import PageSegment from "@/components/PageSegment";
 import FilterSection from "@/components/ProductsPage/FilterSection";
 import ProductsSection from "@/components/ProductsPage/ProductsSection";
@@ -46,7 +46,7 @@ export const getServerSideProps: GetServerSideProps<
 > = async ({ query }) => {
   const data = (await graphQLClient.request(
     getProductsQuery,
-  )) as ProductConnection;
+  )) as ProductsConnection;
 
   const products = (data.products.edges ?? []).reduce(
     (acc: any, edges: any) => (edges.node ? [...acc, edges.node] : acc),

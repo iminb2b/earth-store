@@ -34,6 +34,22 @@ export const getProductsQuery = gql`
   }
 `;
 
+export const getProductQuery = gql`
+  query getProducts($id: String) {
+    product(id: $id) {
+      id
+      name
+      type {
+        name
+      }
+      price
+      image
+      introduction
+      description
+    }
+  }
+`;
+
 export const getReviewsQuery = gql`
   query getReviews {
     reviews {

@@ -74,10 +74,10 @@ const ProductSection: FC<{ product: ProductInfo }> = ({ product }) => {
         </div>
         <div css={infoContainer}>
           <p>
-            Home / {product.type} / {product.name}
+            Home / {product.type.name} / {product.name}
           </p>
 
-          <div css={productType}>{product.type}</div>
+          <div css={productType}>{product.type.name}</div>
           <h3 css={productName}>{product.name}</h3>
           <p css={productPrice}>${product.price}</p>
           <p css={productIntro}>{product.introduction}</p>
@@ -91,7 +91,7 @@ const ProductSection: FC<{ product: ProductInfo }> = ({ product }) => {
           dangerouslySetInnerHTML={{ __html: product.description }}
         ></div>
       </div>
-      <ProductReview reviews={product.reviews} />
+      {/* <ProductReview reviews={product.reviews} /> */}
     </div>
   );
 };
