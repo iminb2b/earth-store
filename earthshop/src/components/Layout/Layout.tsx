@@ -29,7 +29,7 @@ const Layout: FC<{
   return (
     <div css={pageContainer}>
       <Global styles={globalStyles} />
-      <Header />
+      {/* <Header /> */}
       <div css={contentContainer}>{children}</div>
       <Footer />
     </div>
