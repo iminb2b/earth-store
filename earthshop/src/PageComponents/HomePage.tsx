@@ -75,7 +75,7 @@ const HomePage: NextPage<HomePageProps> = ({ featuredProducts, reviews }) => {
         description={"Earth Store - HomePage"}
       />
       <div css={container}>
-        <HomePageHero />
+        {/* <HomePageHero />
         <PageSegment>
           <HomePageFeaturedProducts products={featuredProducts} />
           <HomePageReviews reviews={reviews} />
@@ -85,7 +85,7 @@ const HomePage: NextPage<HomePageProps> = ({ featuredProducts, reviews }) => {
 
         <PageSegment>
           <HomePageServices />
-        </PageSegment>
+        </PageSegment> */}
       </div>
     </PageContainer>
   );
