@@ -1,6 +1,6 @@
 import { gql, GraphQLClient } from "graphql-request";
 
-const endpoint = `https://earth.backend.projects.iminb2b.com/graphql`;
+const endpoint = `https://earth-store-mril.vercel.app/graphql`;
 
 export const graphQLClient = new GraphQLClient(endpoint, {
   method: `GET`,
