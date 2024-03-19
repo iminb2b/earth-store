@@ -35,7 +35,10 @@ const ProductListItemSmall: FC<{ product: ProductInfo }> = ({
   product: { name, type, price, image, id },
 }) => {
   return (
-    <Link css={container} href={routeLinks.product({ productId: id, type })}>
+    <Link
+      css={container}
+      href={routeLinks.product({ productId: id, type: type.name })}
+    >
       <div css={productImage}>
         <Image src={image} fill sizes="19rem" css={img} alt={name} />
       </div>
