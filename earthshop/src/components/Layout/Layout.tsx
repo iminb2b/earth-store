@@ -30,8 +30,8 @@ const Layout: FC<{
     <div css={pageContainer}>
       <Global styles={globalStyles} />
       {/* <Header /> */}
-      <div css={contentContainer}>{children}</div>
-      <Footer />
+      {/* <div css={contentContainer}>{children}</div> */}
+      {/* <Footer /> */}
     </div>
   );
 };
