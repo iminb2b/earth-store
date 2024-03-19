@@ -32,13 +32,13 @@ const productPrice = css`
 `;
 
 const NavProductListItem: FC<{ product: ProductInfo; count: number }> = ({
-  product: { name, type, price, image, id },
+  product: { name, type, price, image, id, slug },
   count,
 }) => {
   return (
     <Link
       css={container}
-      href={routeLinks.product({ productId: id, type: type.name })}
+      href={routeLinks.product({ productId: slug, type: type.name })}
     >
       <div css={productImage}>
         <Image src={image} fill sizes="19rem" css={img} alt={name} />

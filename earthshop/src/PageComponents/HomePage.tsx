@@ -23,6 +23,7 @@ export type ProductInfo = {
   name: string;
   price: string;
   image: string;
+  slug: string;
   id: number;
   introduction: string;
   description: string;

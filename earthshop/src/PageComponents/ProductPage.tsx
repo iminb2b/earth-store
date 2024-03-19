@@ -11,6 +11,8 @@ import {
   getProductsQuery,
   graphQLClient,
 } from "@/api/graphql";
+import { useContext, useEffect } from "react";
+import { AppContext } from "@/context/AppContext";
 
 type ProductPageProps = {
   product: ProductInfo;
@@ -31,7 +33,10 @@ const ProductPage: NextPage<ProductPageProps> = ({
   product,
   relatedProducts,
 }) => {
-  console.log("skdj");
+  const { dispatch } = useContext(AppContext);
+  useEffect(() => {
+    dispatch({ type: "addRecentlyViewed", product });
+  }, []);
 
   return (
     <PageContainer>
@@ -39,7 +44,7 @@ const ProductPage: NextPage<ProductPageProps> = ({
       <PageSegment>
         <div css={container}>
           <ProductSection product={product} />
-          {/* <RelatedProducts products={relatedProducts} /> */}
+          <RelatedProducts products={relatedProducts} />
         </div>
       </PageSegment>
     </PageContainer>
@@ -52,7 +57,7 @@ export const getServerSideProps: GetServerSideProps<ProductPageProps> = async ({
   query,
 }) => {
   const data = (await graphQLClient.request(getProductQuery, {
-    id: query.id?.toString() ?? "1",
+    slug: query.productId?.toString() ?? "1",
   })) as ProductConnection;
   const productResponse = (await graphQLClient.request(getProductsQuery, {
     count: 3,

@@ -3,7 +3,7 @@ const routeLinks = {
   about: () => `/about`,
   products: () => `/products/all`,
   productType: ({ type }: { type: string }) => `/products/${type}`,
-  product: ({ productId, type }: { type: string; productId: number }) =>
+  product: ({ productId, type }: { type: string; productId: string }) =>
     `/products/${type}/${productId}`,
   contact: () => `/contact`,
   checkout: () => `/checkout`,

@@ -83,7 +83,7 @@ const ProductListItem: FC<{ product: ProductInfo }> = ({ product }) => {
     <Link
       css={container}
       href={routeLinks.product({
-        productId: product.id,
+        productId: product.slug,
         type: product.type.name,
       })}
     >

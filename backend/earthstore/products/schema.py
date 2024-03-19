@@ -65,10 +65,10 @@ class Query(graphene.ObjectType):
     def resolve_users(self, info, **kwargs):
         return User.objects.all()
 
-    product = graphene.Field(SingleProductType, id=graphene.String())
+    product = graphene.Field(SingleProductType, slug=graphene.String())
 
-    def resolve_product(root, info, id):
-        return Product.objects.filter(id=id).first()
+    def resolve_product(root, info, slug):
+        return Product.objects.filter(slug=slug).first()
 
 
 schema = graphene.Schema(query=Query)

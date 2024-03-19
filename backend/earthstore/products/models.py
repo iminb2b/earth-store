@@ -22,6 +22,7 @@ class ProductType(models.Model):
 class Product(models.Model):
     name = models.CharField(max_length=100)
     type = models.ForeignKey(ProductType, null=True, on_delete=models.CASCADE)
+    slug = models.SlugField(null=True, blank=True)
     price = models.FloatField(
         null=True,
     )

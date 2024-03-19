@@ -8,6 +8,7 @@ export default function App({ Component, pageProps }: AppProps) {
     username: null,
     cart: [],
     cartProductCounts: 0,
+    recentlyViewed: [],
   };
 
   if (pageProps.error) {

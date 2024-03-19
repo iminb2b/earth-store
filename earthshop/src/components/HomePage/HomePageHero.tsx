@@ -11,6 +11,7 @@ const container = css`
   aspect-ratio: 16 / 9;
   height: auto;
   position: relative;
+  max-height: 100vh;
 `;
 const image = css`
   object-fit: cover;

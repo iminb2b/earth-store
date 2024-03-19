@@ -1,10 +1,11 @@
-import { FC } from "react";
+import { FC, useContext } from "react";
 import { css } from "@emotion/react";
 import { ProductInfo } from "@/PageComponents/HomePage";
 import colors from "@/value/colors";
 import Link from "next/link";
 import routeLinks from "@/routeLinks";
 import ProductListSmall from "./ProductListSmall";
+import { AppContext } from "@/context/AppContext";
 
 const container = css`
   border-right: 1px solid #d7d7d7;
@@ -30,12 +31,20 @@ const flexContainer = css`
 `;
 
 const FilterSection: FC<{ products: ProductInfo[] }> = ({ products }) => {
+  const {
+    state: { recentlyViewed },
+  } = useContext(AppContext);
+
   const postcardCounts = products.filter(
     (product) => product.type.name === "postcard",
   ).length;
 
   const posterCounts = products.filter(
     (product) => product.type.name === "poster",
+  ).length;
+
+  const paintsCounts = products.filter(
+    (product) => product.type.name === "paint",
   ).length;
 
   return (
@@ -49,13 +58,16 @@ const FilterSection: FC<{ products: ProductInfo[] }> = ({ products }) => {
           <Link href={routeLinks.productType({ type: "poster" })}>
             Posters ({posterCounts})
           </Link>
+          <Link href={routeLinks.productType({ type: "paint" })}>
+            Paints ({paintsCounts})
+          </Link>
         </ul>
       </div>
 
       <div>
         <b css={categoryTitle}>Recently Viewed</b>
         <ul css={flexContainer}>
-          <ProductListSmall products={products} />
+          <ProductListSmall products={recentlyViewed} />
         </ul>
       </div>
     </div>

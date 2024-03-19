@@ -1,6 +1,7 @@
 import { gql, GraphQLClient } from "graphql-request";
 
 const endpoint = `https://earth-store-mril.vercel.app/graphql`;
+// const endpoint = `http://127.0.0.1:8000/graphql`;
 
 export const graphQLClient = new GraphQLClient(endpoint, {
   method: `GET`,
@@ -21,6 +22,7 @@ export const getProductsQuery = gql`
         node {
           id
           name
+          slug
           type {
             name
           }
@@ -35,8 +37,8 @@ export const getProductsQuery = gql`
 `;
 
 export const getProductQuery = gql`
-  query getProducts($id: String) {
-    product(id: $id) {
+  query getProducts($slug: String) {
+    product(slug: $slug) {
       id
       name
       type {
@@ -46,6 +48,7 @@ export const getProductQuery = gql`
       image
       introduction
       description
+      slug
     }
   }
 `;

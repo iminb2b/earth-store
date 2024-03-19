@@ -8,11 +8,13 @@ export type AppState = {
     product: ProductInfo;
     count: number;
   }>;
+  recentlyViewed: ProductInfo[];
 };
 
 type AppAction =
   | { type: "changeUsername"; username: string | null }
-  | { type: "addToCart"; product: ProductInfo };
+  | { type: "addToCart"; product: ProductInfo }
+  | { type: "addRecentlyViewed"; product: ProductInfo };
 
 const appReducer = (state: AppState, action: AppAction) => {
   switch (action.type) {
@@ -20,6 +22,24 @@ const appReducer = (state: AppState, action: AppAction) => {
       return {
         ...state,
         username: action.username,
+      };
+    case "addRecentlyViewed":
+      const hasDuplicateProduct = state.recentlyViewed.some(
+        (item) => item.id === action.product.id,
+      );
+
+      if (hasDuplicateProduct) return state;
+
+      if (state.recentlyViewed.length > 2) {
+        return {
+          ...state,
+          recentlyViewed: [action.product, ...state.recentlyViewed.splice(-1)],
+        };
+      }
+
+      return {
+        ...state,
+        recentlyViewed: [action.product, ...state.recentlyViewed],
       };
     case "addToCart":
       const hasDuplicate = state.cart.some(
@@ -56,6 +76,7 @@ export const AppContext = createContext<{
     username: null,
     cartProductCounts: 0,
     cart: [],
+    recentlyViewed: [],
   },
   dispatch: () => null,
 });
