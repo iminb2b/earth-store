@@ -11,17 +11,42 @@ export const graphQLClient = new GraphQLClient(endpoint, {
 });
 
 export const getProductsQuery = gql`
-  query getProducts {
-    products {
-      id
-      name
-      type {
-        name
+  query getProducts($count: Int) {
+    products(first: $count) {
+      pageInfo {
+        hasNextPage
+        endCursor
       }
-      price
-      image
-      introduction
+      edges {
+        node {
+          id
+          name
+          type {
+            name
+          }
+          price
+          image
+          introduction
+          description
+        }
+      }
+    }
+  }
+`;
+
+export const getReviewsQuery = gql`
+  query getReviews {
+    reviews {
+      id
       description
+      product {
+        id
+      }
+      user {
+        username
+        image
+        id
+      }
     }
   }
 `;

@@ -74,7 +74,7 @@ const HomePagePostCardBanner: FC = () => {
           </h1>
         </div>
         <Link
-          href={routeLinks.products()}
+          href={routeLinks.productType({ type: "postcard" })}
           aria-label="Link To Products Page"
           css={buttonStyles({ size: "medium" })}
         >
