@@ -57,6 +57,9 @@ const SignInPage: NextPage = () => {
     dispatch({ type: "changeUsername", username: email ?? "" });
     router.push(routeLinks.home());
   }, []);
+
+  console.log("skdj");
+
   return (
     <PageContainer>
       <PageMeta

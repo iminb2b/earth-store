@@ -23,6 +23,8 @@ type ProductsPageProps = {
 };
 
 const ProductsPage: NextPage<ProductsPageProps> = ({ type, products }) => {
+  console.log("skdj");
+
   return (
     <PageContainer>
       <PageMeta

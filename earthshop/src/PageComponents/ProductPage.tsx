@@ -31,6 +31,8 @@ const ProductPage: NextPage<ProductPageProps> = ({
   product,
   relatedProducts,
 }) => {
+  console.log("skdj");
+
   return (
     <PageContainer>
       <PageMeta title="Earth Store" description={product.introduction} />
