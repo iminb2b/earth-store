@@ -29,9 +29,9 @@ const Layout: FC<{
   return (
     <div css={pageContainer}>
       <Global styles={globalStyles} />
-      {/* <Header /> */}
-      {/* <div css={contentContainer}>{children}</div> */}
-      {/* <Footer /> */}
+      <Header />
+      <div css={contentContainer}>{children}</div>
+      <Footer />
     </div>
   );
 };

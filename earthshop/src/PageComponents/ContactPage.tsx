@@ -8,8 +8,6 @@ import PageSegment from "@/components/PageSegment";
 import ContactPageContent from "@/components/ContactPage/ContactPageContent";
 
 const ContactPage: NextPage = () => {
-  console.log("skdj");
-
   return (
     <PageContainer>
       <PageMeta

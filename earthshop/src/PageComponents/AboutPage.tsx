@@ -9,7 +9,6 @@ import AboutPageMission from "@/components/AboutPage/AboutPageMission";
 import HomePagePostCardBanner from "@/components/HomePage/HomePagePostCardBanner";
 
 const AboutPage: NextPage = () => {
-  console.log("skdj");
   return (
     <PageContainer>
       <PageMeta title="Earth Store - About US" description={"Nhung Nguyen"} />

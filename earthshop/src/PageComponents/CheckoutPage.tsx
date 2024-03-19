@@ -21,8 +21,6 @@ const title = css`
   text-align: center;
 `;
 const CheckoutPage: NextPage = () => {
-  console.log("skdj");
-
   return (
     <PageContainer>
       <PageMeta title="Min - Home Page" description={"Nhung Nguyen"} />

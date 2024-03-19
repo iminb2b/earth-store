@@ -58,8 +58,6 @@ const SignInPage: NextPage = () => {
     router.push(routeLinks.home());
   }, []);
 
-  console.log("skdj");
-
   return (
     <PageContainer>
       <PageMeta

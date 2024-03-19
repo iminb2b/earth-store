@@ -75,7 +75,7 @@ const HomePage: NextPage<HomePageProps> = ({ featuredProducts, reviews }) => {
         description={"Earth Store - HomePage"}
       />
       <div css={container}>
-        {/* <HomePageHero />
+        <HomePageHero />
         <PageSegment>
           <HomePageFeaturedProducts products={featuredProducts} />
           <HomePageReviews reviews={reviews} />
@@ -85,7 +85,7 @@ const HomePage: NextPage<HomePageProps> = ({ featuredProducts, reviews }) => {
 
         <PageSegment>
           <HomePageServices />
-        </PageSegment> */}
+        </PageSegment>
       </div>
     </PageContainer>
   );
@@ -96,22 +96,22 @@ export default HomePage;
 export const getServerSideProps: GetServerSideProps<HomePageProps> = async ({
   query,
 }) => {
-  // const productResponse = (await graphQLClient.request(getProductsQuery, {
-  //   count: 3,
-  // })) as ProductsConnection;
-  // const reviewResponse = (await graphQLClient.request(
-  //   getReviewsQuery,
-  // )) as ReviewConnection;
+  const productResponse = (await graphQLClient.request(getProductsQuery, {
+    count: 3,
+  })) as ProductsConnection;
+  const reviewResponse = (await graphQLClient.request(
+    getReviewsQuery,
+  )) as ReviewConnection;
 
-  // const products = (productResponse.products.edges ?? []).reduce(
-  //   (acc: any, edges: any) => (edges.node ? [...acc, edges.node] : acc),
-  //   [],
-  // );
+  const products = (productResponse.products.edges ?? []).reduce(
+    (acc: any, edges: any) => (edges.node ? [...acc, edges.node] : acc),
+    [],
+  );
 
   return {
     props: {
-      featuredProducts: [],
-      reviews: [],
+      featuredProducts: products,
+      reviews: reviewResponse.reviews,
     },
   };
 };
