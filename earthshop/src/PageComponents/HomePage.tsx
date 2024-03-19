@@ -28,6 +28,22 @@ export type ProductInfo = {
   description: string;
 };
 
+export type ProductConnection = {
+  products: {
+    pageInfo: {
+      hasNextPage: boolean;
+      endCursor: string;
+    };
+    edges: Array<{
+      node: ProductInfo;
+    }>;
+  };
+};
+
+export type ReviewConnection = {
+  reviews: Array<ReviewInfo>;
+};
+
 export type ReviewInfo = {
   user: {
     username: string;
@@ -76,10 +92,12 @@ export default HomePage;
 export const getServerSideProps: GetServerSideProps<HomePageProps> = async ({
   query,
 }) => {
-  const productResponse = await graphQLClient.request(getProductsQuery, {
+  const productResponse = (await graphQLClient.request(getProductsQuery, {
     count: 3,
-  });
-  const reviewResponse = await graphQLClient.request(getReviewsQuery);
+  })) as ProductConnection;
+  const reviewResponse = (await graphQLClient.request(
+    getReviewsQuery,
+  )) as ReviewConnection;
 
   const products = (productResponse.products.edges ?? []).reduce(
     (acc: any, edges: any) => (edges.node ? [...acc, edges.node] : acc),
@@ -88,8 +106,8 @@ export const getServerSideProps: GetServerSideProps<HomePageProps> = async ({
 
   return {
     props: {
-      featuredProducts: products as ProductInfo[],
-      reviews: reviewResponse.reviews as ReviewInfo[],
+      featuredProducts: products,
+      reviews: reviewResponse.reviews,
     },
   };
 };
