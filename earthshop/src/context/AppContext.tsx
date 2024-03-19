@@ -13,7 +13,7 @@ export type AppState = {
 
 type AppAction =
   | { type: "changeUsername"; username: string | null }
-  | { type: "addToCart"; product: ProductInfo }
+  | { type: "addToCart"; product: ProductInfo; count: number }
   | { type: "addRecentlyViewed"; product: ProductInfo };
 
 const appReducer = (state: AppState, action: AppAction) => {
@@ -49,19 +49,19 @@ const appReducer = (state: AppState, action: AppAction) => {
       if (hasDuplicate) {
         const newList = state.cart.map((item) =>
           item.product.id === action.product.id
-            ? { ...item, count: item.count + 1 }
+            ? { ...item, count: item.count + action.count }
             : item,
         );
         return {
           ...state,
-          cartProductCounts: state.cartProductCounts + 1,
+          cartProductCounts: state.cartProductCounts + action.count,
           cart: newList,
         };
       }
       return {
         ...state,
-        cartProductCounts: state.cartProductCounts + 1,
-        cart: [...state.cart, { product: action.product, count: 1 }],
+        cartProductCounts: state.cartProductCounts + action.count,
+        cart: [...state.cart, { product: action.product, count: action.count }],
       };
     default:
       return state;

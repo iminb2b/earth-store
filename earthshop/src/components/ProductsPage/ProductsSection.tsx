@@ -1,13 +1,18 @@
-import { FC } from "react";
+import { FC, useCallback, useState } from "react";
 import { css } from "@emotion/react";
-import { ProductInfo } from "@/PageComponents/HomePage";
+import { ProductInfo, ProductsConnection } from "@/PageComponents/HomePage";
 import ProductList from "./ProductList";
 import colors from "@/value/colors";
+import buttonStyles from "@/styles/buttonStyles";
+import { getProductsQuery, graphQLClient } from "@/api/graphql";
 
 const container = css`
   flex: 1;
 
   padding-left: 2rem;
+
+  display: flex;
+  flex-direction: column;
 `;
 
 const title = css`
@@ -21,20 +26,35 @@ const productContainer = css`
   padding: 3rem 0;
 `;
 
-const ProductsSection: FC<{ products: ProductInfo[]; type: string }> = ({
-  products,
-  type,
-}) => {
-  const filteredProducts = products.filter((product) =>
-    type === "all" ? true : product.type.name === type,
-  );
+const button = css`
+  ${buttonStyles({ size: "medium" })};
+  margin: auto;
+  margin-top: 3rem;
+`;
 
+const ProductsSection: FC<{
+  products: ProductInfo[];
+  type: string;
+  state:
+    | { type: "loading" }
+    | { type: "hasMore"; endCursor: string }
+    | { type: "hasNoMore" }
+    | { type: "hasError" };
+  loadMoreProducts: () => Promise<void>;
+}> = ({ products, type, loadMoreProducts, state }) => {
   return (
     <div css={container}>
       <h3 css={title}>{type}</h3>
       <div css={productContainer}>
-        <ProductList products={filteredProducts} />
+        <ProductList products={products} />
       </div>
+
+      {state.type === "hasMore" && (
+        <button css={button} onClick={loadMoreProducts}>
+          Load More
+        </button>
+      )}
+      {state.type === "loading" && <button css={button}>Loading...</button>}
     </div>
   );
 };

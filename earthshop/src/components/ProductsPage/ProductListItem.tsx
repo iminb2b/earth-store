@@ -76,7 +76,7 @@ const ProductListItem: FC<{ product: ProductInfo }> = ({ product }) => {
   const onClick = useCallback((e: any) => {
     e.preventDefault();
 
-    dispatch({ type: "addToCart", product });
+    dispatch({ type: "addToCart", product, count: 1 });
   }, []);
 
   return (

@@ -81,7 +81,7 @@ const ProductSection: FC<{ product: ProductInfo }> = ({ product }) => {
           <h3 css={productName}>{product.name}</h3>
           <p css={productPrice}>${product.price}</p>
           <p css={productIntro}>{product.introduction}</p>
-          <Quantity />
+          <Quantity product={product} />
         </div>
       </div>
       <div css={descriptionContainer}>

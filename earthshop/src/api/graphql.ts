@@ -12,8 +12,8 @@ export const graphQLClient = new GraphQLClient(endpoint, {
 });
 
 export const getProductsQuery = gql`
-  query getProducts($count: Int) {
-    products(first: $count) {
+  query getProducts($count: Int, $after: String) {
+    products(first: $count, after: $after) {
       pageInfo {
         hasNextPage
         endCursor

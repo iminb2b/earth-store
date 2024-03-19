@@ -52,6 +52,9 @@ const FilterSection: FC<{ products: ProductInfo[] }> = ({ products }) => {
       <div>
         <b css={categoryTitle}>Categories</b>
         <ul css={flexContainer}>
+          <Link href={routeLinks.productType({ type: "all" })}>
+            All ({products.length})
+          </Link>
           <Link href={routeLinks.productType({ type: "postcard" })}>
             Postcards ({postcardCounts})
           </Link>

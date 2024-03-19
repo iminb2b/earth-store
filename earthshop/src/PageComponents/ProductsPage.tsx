@@ -7,6 +7,7 @@ import PageSegment from "@/components/PageSegment";
 import FilterSection from "@/components/ProductsPage/FilterSection";
 import ProductsSection from "@/components/ProductsPage/ProductsSection";
 import { getProductsQuery, graphQLClient } from "@/api/graphql";
+import { useCallback, useState } from "react";
 
 const container = css`
   margin-top: 5rem;
@@ -20,9 +21,61 @@ const container = css`
 type ProductsPageProps = {
   type: string;
   products: ProductInfo[];
+  initialHasNextPage: boolean;
+  endCursor: string;
 };
 
-const ProductsPage: NextPage<ProductsPageProps> = ({ type, products }) => {
+const ProductsPage: NextPage<ProductsPageProps> = ({
+  type,
+  products,
+  initialHasNextPage,
+  endCursor,
+}) => {
+  const [state, setState] = useState<
+    | { type: "loading" }
+    | { type: "hasMore"; endCursor: string }
+    | { type: "hasNoMore" }
+    | { type: "hasError" }
+  >(
+    initialHasNextPage ? { type: "hasMore", endCursor } : { type: "hasNoMore" },
+  );
+
+  const [productList, setProductList] = useState<ProductInfo[]>(products);
+
+  const filteredProducts = productList.filter((product) =>
+    type === "all" ? true : product.type.name === type,
+  );
+
+  const loadMoreProducts = useCallback(async () => {
+    try {
+      setState({ type: "loading" });
+
+      const data = (await graphQLClient.request(getProductsQuery, {
+        count: 6,
+        after: endCursor,
+      })) as ProductsConnection;
+
+      const moreProducts = (data.products.edges ?? []).reduce(
+        (acc: any, edges: any) => (edges.node ? [...acc, edges.node] : acc),
+        [],
+      );
+
+      const newList = [...moreProducts, ...productList];
+
+      setProductList(newList);
+
+      if (data.products.pageInfo.hasNextPage) {
+        setState({
+          type: "hasMore",
+          endCursor: data.products.pageInfo.endCursor,
+        });
+      }
+
+      setState({ type: "hasNoMore" });
+    } catch {
+      setState({ type: "hasError" });
+    }
+  }, []);
   return (
     <PageContainer>
       <PageMeta
@@ -31,8 +84,13 @@ const ProductsPage: NextPage<ProductsPageProps> = ({ type, products }) => {
       />
       <PageSegment>
         <div css={container}>
-          <FilterSection products={products} />
-          <ProductsSection products={products} type={type} />
+          <FilterSection products={productList} />
+          <ProductsSection
+            products={filteredProducts}
+            type={type}
+            state={state}
+            loadMoreProducts={loadMoreProducts}
+          />
         </div>
       </PageSegment>
     </PageContainer>
@@ -44,9 +102,9 @@ export default ProductsPage;
 export const getServerSideProps: GetServerSideProps<
   ProductsPageProps
 > = async ({ query }) => {
-  const data = (await graphQLClient.request(
-    getProductsQuery,
-  )) as ProductsConnection;
+  const data = (await graphQLClient.request(getProductsQuery, {
+    count: 6,
+  })) as ProductsConnection;
 
   const products = (data.products.edges ?? []).reduce(
     (acc: any, edges: any) => (edges.node ? [...acc, edges.node] : acc),
@@ -57,6 +115,8 @@ export const getServerSideProps: GetServerSideProps<
     props: {
       type: query.category?.toString() ?? "all",
       products: products,
+      initialHasNextPage: data.products.pageInfo.hasNextPage ?? false,
+      endCursor: data.products.pageInfo.endCursor ?? "",
     },
   };
 };
