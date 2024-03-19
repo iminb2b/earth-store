@@ -1,6 +1,6 @@
 import { gql, GraphQLClient } from "graphql-request";
 
-const endpoint = `http://127.0.0.1:8000/graphql`;
+const endpoint = `https://earth.backend.projects.iminb2b.com/graphql`;
 
 export const graphQLClient = new GraphQLClient(endpoint, {
   method: `GET`,
