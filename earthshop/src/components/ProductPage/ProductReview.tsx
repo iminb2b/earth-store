@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useCallback, useContext, useRef, useState } from "react";
 import { css } from "@emotion/react";
 import { ProductInfo, ReviewInfo } from "@/PageComponents/HomePage";
 import Image from "next/image";
@@ -7,6 +7,8 @@ import Quantity from "./Quantity";
 import { sectionTitle } from "@/styles/generalStyles";
 import ProductReviewList from "./ProductReviewList";
 import buttonStyles from "@/styles/buttonStyles";
+import { createReviewMutation, graphQLClientMutation } from "@/api/graphql";
+import { AppContext } from "@/context/AppContext";
 
 const container = css`
   display: flex;
@@ -26,23 +28,83 @@ const formContainer = css`
   width: 100%;
   display: flex;
   flex-direction: column;
+  height: 18rem;
   gap: 1rem;
 `;
 
-const ProductReview: FC<{ reviews: ReviewInfo[] }> = ({ reviews }) => {
+const ProductReview: FC<{ reviews: ReviewInfo[]; product: ProductInfo }> = ({
+  reviews,
+  product,
+}) => {
+  const {
+    state: { username },
+  } = useContext(AppContext);
+
+  const isReviewed = reviews.some(
+    (review) => review.user.username === username,
+  );
+  const [state, setState] = useState<
+    | { type: "submitted" }
+    | { type: "hasError" }
+    | { type: "isNotSubmitted" }
+    | { type: "submitting" }
+  >({ type: "isNotSubmitted" });
+
+  const emailRef = useRef<HTMLInputElement>(null);
+  const messageRef = useRef<HTMLTextAreaElement>(null);
+  const onSubmit = useCallback(async (e: any) => {
+    e.preventDefault();
+    setState({ type: "submitting" });
+    const email = emailRef.current?.value ?? "";
+    const message = messageRef.current?.value ?? "";
+
+    try {
+      const data = await graphQLClientMutation.request(createReviewMutation, {
+        email,
+        message,
+        productSlug: product.slug,
+      });
+      console.log(data);
+
+      setState({ type: "submitted" });
+    } catch {
+      setState({ type: "hasError" });
+    }
+  }, []);
+  console.log(isReviewed);
+
   return (
     <div css={container}>
       <h3 css={sectionTitle}>REVIEWS</h3>
-      <ProductReviewList reviews={reviews} />
+      {reviews && <ProductReviewList reviews={reviews} />}
 
-      <h3 css={sectionTitle}>Add Your Feedback</h3>
-
-      <form css={formContainer}>
-        <input css={inputBox} type="text" placeholder="Full Name" />
-        <input css={inputBox} type="email" placeholder="Email" />
-        <textarea css={textBox} placeholder="Enter Your Message..." />
-        <button css={buttonStyles({ size: "medium" })}>SUBMIT</button>
-      </form>
+      {!isReviewed && (
+        <>
+          <h3 css={sectionTitle}>Add Your Feedback</h3>
+          <form css={formContainer} onSubmit={onSubmit}>
+            <input
+              css={inputBox}
+              type="email"
+              placeholder="Email"
+              ref={emailRef}
+            />
+            <textarea
+              css={textBox}
+              placeholder="Enter Your Message..."
+              ref={messageRef}
+            />
+            <button
+              disabled={state.type === "submitted"}
+              css={buttonStyles({ size: "medium" })}
+              type="submit"
+            >
+              Submit
+              {state.type === "submitting" ? "ting" : ""}
+              {state.type === "submitted" ? "ted" : ""}
+            </button>
+          </form>
+        </>
+      )}
     </div>
   );
 };

@@ -2,8 +2,10 @@ from django.db import models
 
 
 # Create your models here.
+
+
 class User(models.Model):
-    username = models.CharField(max_length=100)
+    username = models.CharField(max_length=100, unique=True)
     image = models.TextField(
         null=True,
     )
@@ -50,3 +52,9 @@ class Review(models.Model):
 
     def __str__(self):
         return self.product.name
+
+
+class Cart(models.Model):
+    count = models.PositiveIntegerField(null=True, blank=True)
+    product = models.ForeignKey(Product, null=True, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, null=True, on_delete=models.CASCADE)

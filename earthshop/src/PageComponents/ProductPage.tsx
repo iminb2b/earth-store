@@ -1,7 +1,12 @@
 import PageContainer from "@/components/PageContent";
 import { GetServerSideProps, NextPage } from "next";
 import PageMeta from "@/components/PageMeta";
-import { ProductConnection, ProductInfo, ProductsConnection } from "./HomePage";
+import {
+  ProductConnection,
+  ProductInfo,
+  ProductsConnection,
+  ReviewInfo,
+} from "./HomePage";
 import PageSegment from "@/components/PageSegment";
 import ProductSection from "@/components/ProductPage/ProductSection";
 import { css } from "@emotion/react";
@@ -9,6 +14,7 @@ import RelatedProducts from "@/components/ProductPage/RelatedProducts";
 import {
   getProductQuery,
   getProductsQuery,
+  getReviewsByProductQuery,
   graphQLClient,
 } from "@/api/graphql";
 import { useContext, useEffect } from "react";
@@ -17,6 +23,7 @@ import { AppContext } from "@/context/AppContext";
 type ProductPageProps = {
   product: ProductInfo;
   relatedProducts: ProductInfo[];
+  reviews: ReviewInfo[];
 };
 
 const container = css`
@@ -32,6 +39,7 @@ const container = css`
 const ProductPage: NextPage<ProductPageProps> = ({
   product,
   relatedProducts,
+  reviews,
 }) => {
   const { dispatch } = useContext(AppContext);
   useEffect(() => {
@@ -43,7 +51,7 @@ const ProductPage: NextPage<ProductPageProps> = ({
       <PageMeta title="Earth Store" description={product.introduction} />
       <PageSegment>
         <div css={container}>
-          <ProductSection product={product} />
+          <ProductSection product={product} reviews={reviews} />
           <RelatedProducts products={relatedProducts} />
         </div>
       </PageSegment>
@@ -52,6 +60,10 @@ const ProductPage: NextPage<ProductPageProps> = ({
 };
 
 export default ProductPage;
+
+export type ReviewByProductConnection = {
+  reviewsByProduct: Array<ReviewInfo>;
+};
 
 export const getServerSideProps: GetServerSideProps<ProductPageProps> = async ({
   query,
@@ -67,7 +79,16 @@ export const getServerSideProps: GetServerSideProps<ProductPageProps> = async ({
     (acc: any, edges: any) => (edges.node ? [...acc, edges.node] : acc),
     [],
   );
+
+  const reviewResponse = (await graphQLClient.request(
+    getReviewsByProductQuery,
+    { productId: data.product.id },
+  )) as ReviewByProductConnection;
   return {
-    props: { relatedProducts: products, product: data.product },
+    props: {
+      relatedProducts: products,
+      product: data.product,
+      reviews: reviewResponse.reviewsByProduct,
+    },
   };
 };

@@ -22,7 +22,7 @@ const reviewText = css`
 `;
 const img = css`
   border-radius: 100%;
-
+  background-color: ${colors.green10};
   height: 70;
   width: 70;
 `;

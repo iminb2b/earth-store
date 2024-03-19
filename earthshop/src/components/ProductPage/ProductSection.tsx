@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { css } from "@emotion/react";
-import { ProductInfo } from "@/PageComponents/HomePage";
+import { ProductInfo, ReviewInfo } from "@/PageComponents/HomePage";
 import Image from "next/image";
 import colors from "@/value/colors";
 import Quantity from "./Quantity";
@@ -65,7 +65,10 @@ const description = css`
     gap: 0.5rem;
   }
 `;
-const ProductSection: FC<{ product: ProductInfo }> = ({ product }) => {
+const ProductSection: FC<{ product: ProductInfo; reviews: ReviewInfo[] }> = ({
+  product,
+  reviews,
+}) => {
   return (
     <div css={container}>
       <div css={contentContainer}>
@@ -91,7 +94,7 @@ const ProductSection: FC<{ product: ProductInfo }> = ({ product }) => {
           dangerouslySetInnerHTML={{ __html: product.description }}
         ></div>
       </div>
-      {/* <ProductReview reviews={product.reviews} /> */}
+      <ProductReview reviews={reviews} product={product} />
     </div>
   );
 };

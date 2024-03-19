@@ -1,7 +1,7 @@
 import { gql, GraphQLClient } from "graphql-request";
 
-const endpoint = `https://earth-store-mril.vercel.app/graphql`;
-// const endpoint = `http://127.0.0.1:8000/graphql`;
+// const endpoint = `https://earth-store-mril.vercel.app/graphql`;
+const endpoint = `http://127.0.0.1:8000/graphql`;
 
 export const graphQLClient = new GraphQLClient(endpoint, {
   method: `GET`,
@@ -66,6 +66,47 @@ export const getReviewsQuery = gql`
         image
         id
       }
+    }
+  }
+`;
+
+export const getReviewsByProductQuery = gql`
+  query getReviewsByProduct($productId: String) {
+    reviewsByProduct(productId: $productId) {
+      id
+      description
+      product {
+        id
+      }
+      user {
+        username
+        image
+        id
+      }
+    }
+  }
+`;
+
+export const graphQLClientMutation = new GraphQLClient(endpoint, {
+  method: `POST`,
+});
+
+export const createReviewMutation = gql`
+  mutation createReview(
+    $email: String
+    $message: String
+    $productSlug: String
+  ) {
+    createReview(email: $email, message: $message, productSlug: $productSlug) {
+      success
+    }
+  }
+`;
+
+export const createCartMutation = gql`
+  mutation createCart($username: String, $count: String, $productSlug: String) {
+    createCart(username: $username, count: $count, productSlug: $productSlug) {
+      success
     }
   }
 `;
