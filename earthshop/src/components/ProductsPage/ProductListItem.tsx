@@ -7,6 +7,7 @@ import Link from "next/link";
 import routeLinks from "@/routeLinks";
 import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
 import { AppContext } from "@/context/AppContext";
+import { createCartMutation, graphQLClientMutation } from "@/api/graphql";
 
 const container = css`
   display: flex;
@@ -71,12 +72,26 @@ const icon = css`
 `;
 
 const ProductListItem: FC<{ product: ProductInfo }> = ({ product }) => {
-  const { dispatch } = useContext(AppContext);
+  const {
+    state: { username },
+    dispatch,
+  } = useContext(AppContext);
 
-  const onClick = useCallback((e: any) => {
+  const onClick = useCallback(async (e: any) => {
     e.preventDefault();
 
     dispatch({ type: "addToCart", product, count: 1 });
+    if (!username) return;
+    try {
+      const data = await graphQLClientMutation.request(createCartMutation, {
+        username,
+        count: 1,
+        productSlug: product.slug,
+      });
+      console.log(data);
+    } catch (error) {
+      console.error(error);
+    }
   }, []);
 
   return (

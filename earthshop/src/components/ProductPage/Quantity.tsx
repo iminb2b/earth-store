@@ -6,6 +6,7 @@ import colors from "@/value/colors";
 import buttonStyles from "@/styles/buttonStyles";
 import { AppContext } from "@/context/AppContext";
 import { ProductInfo } from "@/PageComponents/HomePage";
+import { createCartMutation, graphQLClientMutation } from "@/api/graphql";
 const container = css`
   display: flex;
   gap: 2rem;
@@ -51,13 +52,27 @@ const Quantity: FC<{ product: ProductInfo }> = ({ product }) => {
   const increment = useCallback(() => setCount((prev) => prev + 1), []);
   const onChange = useCallback((e: any) => setCount(e.target.value ?? 0), []);
 
-  const { dispatch } = useContext(AppContext);
+  const {
+    state: { username },
+    dispatch,
+  } = useContext(AppContext);
 
-  const onClick = useCallback((e: any) => {
+  const onClick = useCallback(async (e: any) => {
     e.preventDefault();
 
-    console.log(count);
     dispatch({ type: "addToCart", product, count });
+
+    if (!username) return;
+    try {
+      const data = await graphQLClientMutation.request(createCartMutation, {
+        username,
+        count,
+        productSlug: product.slug,
+      });
+      console.log(data);
+    } catch (error) {
+      console.error(error);
+    }
   }, []);
 
   return (

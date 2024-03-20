@@ -76,6 +76,12 @@ class Query(graphene.ObjectType):
     def resolve_users(self, info, **kwargs):
         return User.objects.all()
 
+    cart = graphene.List(CartType, username=graphene.String())
+
+    def resolve_cart(root, info, username):
+        user = User.objects.filter(username=username).first()
+        return Cart.objects.filter(user=user)
+
     product = graphene.Field(SingleProductType, slug=graphene.String())
 
     def resolve_product(root, info, slug):
@@ -115,10 +121,15 @@ class CreateCart(graphene.Mutation):
 
     def mutate(self, info, username, productSlug, count):
         product = Product.objects.filter(slug=productSlug).first()
+        duplicate = Cart.objects.get(product=product)
         user = User.objects.filter(username=username).first()
 
-        cart = Cart(user=user, product=product, count=count)
-        cart.save()
+        if duplicate:
+            duplicate.count = duplicate.count + count
+            duplicate.save
+        else:
+            cart = Cart(user=user, product=product, count=count)
+            cart.save()
 
         return CreateCart(success=True)
 

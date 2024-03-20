@@ -1,27 +1,36 @@
 import { ProductInfo } from "@/PageComponents/HomePage";
+import { Cart } from "@/components/Nav/NavShoppingCart";
 import { ReactNode, createContext, useReducer } from "react";
 
 export type AppState = {
   username: string | null;
   cartProductCounts: number;
-  cart: Array<{
-    product: ProductInfo;
-    count: number;
-  }>;
+  cart: Array<Cart>;
   recentlyViewed: ProductInfo[];
 };
 
 type AppAction =
   | { type: "changeUsername"; username: string | null }
   | { type: "addToCart"; product: ProductInfo; count: number }
-  | { type: "addRecentlyViewed"; product: ProductInfo };
+  | { type: "addRecentlyViewed"; product: ProductInfo }
+  | { type: "addToCarts"; cart: Cart[] };
 
 const appReducer = (state: AppState, action: AppAction) => {
   switch (action.type) {
     case "changeUsername":
+      localStorage.setItem("user", action.username ?? "");
       return {
         ...state,
         username: action.username,
+      };
+    case "addToCarts":
+      return {
+        ...state,
+        cart: action.cart,
+        cartProductCounts: action.cart.reduce(
+          (acc, item) => acc + item.count,
+          0,
+        ),
       };
     case "addRecentlyViewed":
       const hasDuplicateProduct = state.recentlyViewed.some(

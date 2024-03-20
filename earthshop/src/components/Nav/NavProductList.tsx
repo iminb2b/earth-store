@@ -17,11 +17,11 @@ const NavProductList: FC<{
 }> = ({ list }) => {
   return (
     <div css={container}>
-      {list.map((item) => (
+      {list.map((item, index) => (
         <NavProductListItem
           product={item.product}
           count={item.count}
-          key={item.product.id}
+          key={index}
         />
       ))}
     </div>

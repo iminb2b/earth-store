@@ -10,7 +10,8 @@ import { usePathname } from "next/navigation";
 import Link from "next/link";
 import routeLinks from "@/routeLinks";
 import buttonStyles from "@/styles/buttonStyles";
-import { useRouter } from "next/router";
+import { getCartQuery, graphQLClient } from "@/api/graphql";
+import { ProductInfo } from "@/PageComponents/HomePage";
 const container = css`
   display: flex;
 `;
@@ -80,11 +81,21 @@ const checkoutContainer = css`
   flex-direction: column;
 `;
 
+export type Cart = {
+  count: number;
+  product: ProductInfo;
+};
+
+export type CartConnection = { cart: Cart[] };
+
 const NavShoppingCart: FC = () => {
   const {
-    state: { cartProductCounts, cart },
+    state: { cartProductCounts, cart, username },
+    dispatch,
   } = useContext(AppContext);
   const [open, setOpen] = useState(false);
+  const [count, setCount] = useState(cartProductCounts);
+  const [carts, setCarts] = useState<Cart[]>(cart);
   const subtotal = cart.reduce(
     (acc, item) => acc + item.count * parseInt(item.product.price),
     0,
@@ -94,6 +105,28 @@ const NavShoppingCart: FC = () => {
     console.log(`Route changed to: ${pathname}`);
     setOpen(false);
   }, [pathname]);
+
+  useEffect(() => {
+    const getData = async () => {
+      const storedUsername = await localStorage.getItem("user");
+
+      dispatch({ type: "changeUsername", username: storedUsername ?? null });
+
+      if (!username || !storedUsername) return;
+
+      const data = (await graphQLClient.request(getCartQuery, {
+        username,
+      })) as CartConnection;
+
+      setCarts(() => data.cart ?? []);
+      dispatch({ type: "addToCarts", cart: data.cart });
+      setCount(data.cart.length ?? 0);
+    };
+
+    getData();
+  }, [username]);
+
+  console.log(carts, username);
   return (
     <div css={container}>
       <Button
@@ -101,7 +134,7 @@ const NavShoppingCart: FC = () => {
         className="button"
         css={buttonContainer}
       >
-        <div css={badge}>{cartProductCounts}</div>
+        <div css={badge}>{count}</div>
         <ShoppingBasketIcon css={icon} />
       </Button>
       <Dialog open={open} onClose={() => setOpen(false)} css={dialog}>
@@ -112,7 +145,7 @@ const NavShoppingCart: FC = () => {
               <CloseIcon />
             </DialogDismiss>
           </DialogHeading>
-          <NavProductList list={cart} />
+          {carts && <NavProductList list={carts} />}
           <div css={totalContainer}>
             <span>Subtotal:</span>
             <span>${subtotal}</span>

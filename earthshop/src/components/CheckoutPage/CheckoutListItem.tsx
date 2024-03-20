@@ -4,7 +4,7 @@ import { ProductInfo } from "@/PageComponents/HomePage";
 import Image from "next/image";
 
 const container = css`
-  padding: 1rem;
+  padding: 2rem;
 
   display: grid;
   grid-template-columns: 1fr 1fr 3fr 1fr 1fr;
@@ -21,10 +21,11 @@ const text = css`
   text-align: center;
 `;
 
-const CheckoutListItem: FC<{ product: ProductInfo; index: number }> = ({
-  product,
-  index,
-}) => {
+const CheckoutListItem: FC<{
+  product: ProductInfo;
+  count: number;
+  index: number;
+}> = ({ product, count, index }) => {
   return (
     <div css={container}>
       <div>
@@ -36,10 +37,10 @@ const CheckoutListItem: FC<{ product: ProductInfo; index: number }> = ({
         <h3 css={title}>{product.name}</h3>
       </div>
       <div>
-        <h3 css={text}>2</h3>
+        <h3 css={text}>{count}</h3>
       </div>
       <div>
-        <h3 css={text}>{product.price}</h3>
+        <h3 css={text}>${product.price}</h3>
       </div>
     </div>
   );

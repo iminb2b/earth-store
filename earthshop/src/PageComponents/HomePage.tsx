@@ -68,7 +68,6 @@ type HomePageProps = {
 };
 
 const HomePage: NextPage<HomePageProps> = ({ featuredProducts, reviews }) => {
-  console.log(reviews);
   return (
     <PageContainer>
       <PageMeta

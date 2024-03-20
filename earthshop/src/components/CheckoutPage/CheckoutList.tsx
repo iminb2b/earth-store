@@ -9,7 +9,6 @@ const container = css`
   border-top: 1px solid #d7d7d7;
   display: flex;
   flex-direction: column;
-  gap: 2rem;
 `;
 
 const productContainer = css`
@@ -17,11 +16,11 @@ const productContainer = css`
   border-bottom: 1px solid #d7d7d7;
 `;
 const headerContainer = css`
-  padding: 1rem;
+  padding: 2rem;
+  grid-gap: 2rem;
 
   display: grid;
-  grid-template-columns: 4fr 1fr 1fr;
-  grid-gap: 2rem;
+  grid-template-columns: 1fr 4fr 1fr 1fr;
 `;
 
 const heading = css`
@@ -38,7 +37,7 @@ const text = css`
 
 const CheckoutList: FC = () => {
   const {
-    state: { cart },
+    state: { cart, cartProductCounts },
   } = useContext(AppContext);
 
   const price = cart.reduce(
@@ -49,6 +48,7 @@ const CheckoutList: FC = () => {
   return (
     <div css={container}>
       <div css={headerContainer}>
+        <h3 css={heading}>Index</h3>
         <h3 css={heading}>Product</h3>
         <h3 css={heading}>Quantity</h3>
         <h3 css={heading}>Price</h3>
@@ -59,13 +59,15 @@ const CheckoutList: FC = () => {
             product={item.product}
             key={item.product.id}
             index={index}
+            count={item.count}
           />
         ))}
       </div>
       <div css={headerContainer}>
         <h3 css={text}></h3>
-        <h3 css={text}>12</h3>
-        <h3 css={text}>{price}</h3>
+        <h3 css={text}></h3>
+        <h3 css={text}>{cartProductCounts}</h3>
+        <h3 css={text}>${price}</h3>
       </div>
 
       <button css={buttonStyles}>CHECK OUT</button>
