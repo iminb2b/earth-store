@@ -91,11 +91,8 @@ export type CartConnection = { cart: Cart[] };
 const NavShoppingCart: FC = () => {
   const {
     state: { cartProductCounts, cart, username },
-    dispatch,
   } = useContext(AppContext);
   const [open, setOpen] = useState(false);
-  const [count, setCount] = useState(cartProductCounts);
-  const [carts, setCarts] = useState<Cart[]>(cart);
   const subtotal = cart.reduce(
     (acc, item) => acc + item.count * parseInt(item.product.price),
     0,
@@ -106,27 +103,6 @@ const NavShoppingCart: FC = () => {
     setOpen(false);
   }, [pathname]);
 
-  useEffect(() => {
-    const getData = async () => {
-      const storedUsername = await localStorage.getItem("user");
-
-      dispatch({ type: "changeUsername", username: storedUsername ?? null });
-
-      if (!username || !storedUsername) return;
-
-      const data = (await graphQLClient.request(getCartQuery, {
-        username,
-      })) as CartConnection;
-
-      setCarts(() => data.cart ?? []);
-      dispatch({ type: "addToCarts", cart: data.cart });
-      setCount(data.cart.length ?? 0);
-    };
-
-    getData();
-  }, [username]);
-
-  console.log(carts, username);
   return (
     <div css={container}>
       <Button
@@ -134,7 +110,7 @@ const NavShoppingCart: FC = () => {
         className="button"
         css={buttonContainer}
       >
-        <div css={badge}>{count}</div>
+        <div css={badge}>{cartProductCounts}</div>
         <ShoppingBasketIcon css={icon} />
       </Button>
       <Dialog open={open} onClose={() => setOpen(false)} css={dialog}>
@@ -145,7 +121,7 @@ const NavShoppingCart: FC = () => {
               <CloseIcon />
             </DialogDismiss>
           </DialogHeading>
-          {carts && <NavProductList list={carts} />}
+          {cart && <NavProductList list={cart} />}
           <div css={totalContainer}>
             <span>Subtotal:</span>
             <span>${subtotal}</span>

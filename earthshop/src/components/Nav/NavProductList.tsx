@@ -10,6 +10,8 @@ const container = css`
   padding: 2rem;
   gap: 2rem;
   flex: 1;
+
+  overflow: scroll;
 `;
 
 const NavProductList: FC<{

@@ -1,8 +1,11 @@
 import { Global, css } from "@emotion/react";
-import { FC, ReactNode } from "react";
+import { FC, ReactNode, useContext, useEffect } from "react";
 import Header from "./Header";
 import globalStyles from "@/styles/globalStyles";
 import Footer from "./Footer";
+import { getCartQuery, graphQLClient } from "@/api/graphql";
+import { CartConnection } from "../Nav/NavShoppingCart";
+import { AppContext } from "@/context/AppContext";
 
 const pageContainer = css`
   width: 100%;
@@ -26,6 +29,27 @@ const contentContainer = css`
 const Layout: FC<{
   children: ReactNode;
 }> = ({ children }) => {
+  const {
+    state: { username },
+    dispatch,
+  } = useContext(AppContext);
+  useEffect(() => {
+    const getData = async () => {
+      const storedUsername = await localStorage.getItem("user");
+
+      dispatch({ type: "changeUsername", username: storedUsername ?? null });
+
+      if (!username || !storedUsername) return;
+
+      const data = (await graphQLClient.request(getCartQuery, {
+        username,
+      })) as CartConnection;
+
+      dispatch({ type: "addToCarts", cart: data.cart });
+    };
+
+    getData();
+  }, [username]);
   return (
     <div css={pageContainer}>
       <Global styles={globalStyles} />

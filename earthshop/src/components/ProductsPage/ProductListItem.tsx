@@ -73,7 +73,7 @@ const icon = css`
 
 const ProductListItem: FC<{ product: ProductInfo }> = ({ product }) => {
   const {
-    state: { username },
+    state: { username, cart },
     dispatch,
   } = useContext(AppContext);
 
@@ -82,13 +82,15 @@ const ProductListItem: FC<{ product: ProductInfo }> = ({ product }) => {
 
     dispatch({ type: "addToCart", product, count: 1 });
     if (!username) return;
+    console.log(product.slug);
+
     try {
       const data = await graphQLClientMutation.request(createCartMutation, {
         username,
         count: 1,
         productSlug: product.slug,
       });
-      console.log(data);
+      console.log(data, product.slug);
     } catch (error) {
       console.error(error);
     }

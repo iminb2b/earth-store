@@ -1,4 +1,4 @@
-import { FC, useCallback, useContext, useState } from "react";
+import { FC, useCallback, useContext, useRef, useState } from "react";
 import { css } from "@emotion/react";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
@@ -44,7 +44,7 @@ const button = css`
 
 const Quantity: FC<{ product: ProductInfo }> = ({ product }) => {
   const [count, setCount] = useState<number>(1);
-
+  const inputRef = useRef<HTMLInputElement>(null);
   const decrement = useCallback(
     () => setCount((prev) => (prev < 1 ? 0 : prev - 1)),
     [],
@@ -60,7 +60,11 @@ const Quantity: FC<{ product: ProductInfo }> = ({ product }) => {
   const onClick = useCallback(async (e: any) => {
     e.preventDefault();
 
-    dispatch({ type: "addToCart", product, count });
+    dispatch({
+      type: "addToCart",
+      product,
+      count: parseInt(inputRef?.current?.value ?? "1"),
+    });
 
     if (!username) return;
     try {
@@ -83,10 +87,11 @@ const Quantity: FC<{ product: ProductInfo }> = ({ product }) => {
         </button>
         <input
           css={inputBox}
-          type="number"
+          type="numeric"
           min={1}
           value={count}
           onChange={onChange}
+          ref={inputRef}
         />
         <button css={button} onClick={increment}>
           <AddIcon css={icon} />

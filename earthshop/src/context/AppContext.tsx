@@ -23,15 +23,17 @@ const appReducer = (state: AppState, action: AppAction) => {
         ...state,
         username: action.username,
       };
+
     case "addToCarts":
       return {
         ...state,
-        cart: action.cart,
-        cartProductCounts: action.cart.reduce(
+        cart: [...action.cart, ...state.cart],
+        cartProductCounts: [...action.cart, ...state.cart].reduce(
           (acc, item) => acc + item.count,
           0,
         ),
       };
+
     case "addRecentlyViewed":
       const hasDuplicateProduct = state.recentlyViewed.some(
         (item) => item.id === action.product.id,
@@ -61,12 +63,15 @@ const appReducer = (state: AppState, action: AppAction) => {
             ? { ...item, count: item.count + action.count }
             : item,
         );
+
+        console.log(action.count);
         return {
           ...state,
           cartProductCounts: state.cartProductCounts + action.count,
           cart: newList,
         };
       }
+
       return {
         ...state,
         cartProductCounts: state.cartProductCounts + action.count,

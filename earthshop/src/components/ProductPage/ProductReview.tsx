@@ -71,7 +71,6 @@ const ProductReview: FC<{ reviews: ReviewInfo[]; product: ProductInfo }> = ({
       setState({ type: "hasError" });
     }
   }, []);
-  console.log(isReviewed);
 
   return (
     <div css={container}>

@@ -121,12 +121,12 @@ class CreateCart(graphene.Mutation):
 
     def mutate(self, info, username, productSlug, count):
         product = Product.objects.filter(slug=productSlug).first()
-        duplicate = Cart.objects.get(product=product)
         user = User.objects.filter(username=username).first()
 
-        if duplicate:
+        if Cart.objects.filter(product=product).first():
+            duplicate = Cart.objects.get(product=product)
             duplicate.count = duplicate.count + count
-            duplicate.save
+            duplicate.save()
         else:
             cart = Cart(user=user, product=product, count=count)
             cart.save()
